@@ -15,5 +15,8 @@ app.use('/user', _usersroutes2.default);
 app.use('/item', _itemroutes2.default);
 app.use('/purchase', _purchaseroutes2.default);
 
+app.get('/', (req, res) => {
+  return res.send('Hello World');
+})
 
 app.listen(process.env.PORT || 8080, () => console.log(`Server running on ${process.env.PORT}`));

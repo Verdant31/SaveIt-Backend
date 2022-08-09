@@ -1,6 +1,6 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true});
 var _client = require('@prisma/client');
-var _client3 = require('../prisma/client');
+var _client3 = require('../../prisma/client');
 const prisma = new (0, _client.PrismaClient)()
 
  const editUserItemsList = async (req, res) => {

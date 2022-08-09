@@ -1,7 +1,7 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true});
 var _bcryptjs = require('bcryptjs');
 var _jsonwebtoken = require('jsonwebtoken');
-var _client = require('../prisma/client');
+var _client = require('../../prisma/client');
 
 
 

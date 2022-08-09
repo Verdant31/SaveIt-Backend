@@ -15,5 +15,8 @@ app.use('/user', usersRoutes);
 app.use('/item', itemRoutes);
 app.use('/purchase', purchaseRoutes);
 
+app.get('/', (req: Request, res: Response) => {
+  return res.send('Hello World');
+})
 
 app.listen(process.env.PORT || 8080, () => console.log(`Server running on ${process.env.PORT}`));
