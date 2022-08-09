@@ -18,8 +18,8 @@
   "scripts": {
     "dev": "nodemon index.ts",
     "start": "node index.ts"
-    
   },
+  "type":"module",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
