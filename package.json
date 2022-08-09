@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "node dist/index.js",
-    "build": "sucrase ./src -d ./dist --transforms typescript,imports & prisma generate --schema=./src/prisma/schema.prisma",
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports & prisma generate --schema=./dist/prisma/schema.prisma",
     "dev": "nodemon src/index.ts"
   },
   "devDependencies": {
