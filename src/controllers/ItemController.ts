@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import { PrismaClient } from '@prisma/client'
-import { client } from '../prisma/client';
+import { client } from '../prisma';
 const prisma = new PrismaClient()
 
 export const editUserItemsList: RequestHandler = async (req, res) => {

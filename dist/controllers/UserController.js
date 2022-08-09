@@ -1,21 +1,21 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true});
 var _bcryptjs = require('bcryptjs');
 var _jsonwebtoken = require('jsonwebtoken');
-var _client = require('../prisma/client');
+var _prisma = require('../prisma');
 
 
 
  const createUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const userAlreadyExists = await _client.client.user.findFirst({
+    const userAlreadyExists = await _prisma.client.user.findFirst({
       where: {email}
     })
     if (userAlreadyExists) {
       return res.status(400).json({message: 'Email já cadastrado no sistema.'})
     }
     const passwordHash = await _bcryptjs.hash.call(void 0, password, 8);
-    await _client.client.user.create({
+    await _prisma.client.user.create({
       data: {
         email,
         password: passwordHash,
@@ -30,7 +30,7 @@ var _client = require('../prisma/client');
  const autenticateUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const userAlreadyExists = await _client.client.user.findFirst({
+    const userAlreadyExists = await _prisma.client.user.findFirst({
       where: {email}
     })
     if (!userAlreadyExists) {
@@ -43,7 +43,7 @@ var _client = require('../prisma/client');
     }
     const token = _jsonwebtoken.sign.call(void 0, {userId: userAlreadyExists.id}, `${process.env.SECRET_TOKEN}`, {expiresIn: '1y'});
 
-    const items = await _client.client.purchase.findMany({
+    const items = await _prisma.client.purchase.findMany({
       where: {userId: userAlreadyExists.id},
       orderBy: {date: 'desc'},
     })
@@ -57,7 +57,7 @@ var _client = require('../prisma/client');
  const editBalance = async (req, res) => {
   const {  newBalance, userId } = req.body;
   try { 
-    await _client.client.user.update({
+    await _prisma.client.user.update({
       data: {
         balance: newBalance,
       },
@@ -78,10 +78,10 @@ var _client = require('../prisma/client');
       return res.status(401).json({ message: "Token expirado, realize um novo login." });
     }
     const userId = (decoded ).userId;
-    const user = await _client.client.user.findFirst({where: {id: userId}});
+    const user = await _prisma.client.user.findFirst({where: {id: userId}});
     const newToken = _jsonwebtoken.sign.call(void 0, {userId}, `${process.env.SECRET_TOKEN}`, {expiresIn: '1y'});
 
-    const items = await _client.client.purchase.findMany({
+    const items = await _prisma.client.purchase.findMany({
       where: {userId},
       orderBy: {date: 'desc'},
     })
@@ -94,7 +94,7 @@ var _client = require('../prisma/client');
  const setRunToFalse = async (req, res) => {
   const { userId } = req.body;
   try { 
-    await _client.client.user.update({
+    await _prisma.client.user.update({
       data: {
         isFirstRun: false,
       },
