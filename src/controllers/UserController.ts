@@ -2,8 +2,6 @@ import { RequestHandler } from 'express';
 import { compare, hash } from 'bcryptjs';
 import { sign, verify } from 'jsonwebtoken';
 import { client } from '../prisma';
-import { convertDate } from '../utils/convertDate';
-
 
 export const createUser: RequestHandler = async (req, res) => {
   const { email, password } = req.body;
@@ -85,8 +83,13 @@ export const validateUserToken: RequestHandler = async (req, res) => {
       where: {userId},
       orderBy: {date: 'desc'},
     })
+    console.log('Token' + decoded)
+    console.log('UserId' + userId)
+    console.log('user' + user)
+    console.log('Items' + items)
     res.status(200).json({message: "Informações devolvidas com sucesso.", user, newToken, items})
   }catch(err) {
+    console.log(err)
     res.status(500).json({message: 'Houve um erro ao tentar atualizar seu usuario, tente novamente mais tarde.'})
   }
 }

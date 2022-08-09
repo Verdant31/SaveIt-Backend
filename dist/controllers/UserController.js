@@ -3,8 +3,6 @@ var _bcryptjs = require('bcryptjs');
 var _jsonwebtoken = require('jsonwebtoken');
 var _prisma = require('../prisma');
 
-
-
  const createUser = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -85,6 +83,10 @@ var _prisma = require('../prisma');
       where: {userId},
       orderBy: {date: 'desc'},
     })
+    console.log('Token' + decoded)
+    console.log('UserId' + userId)
+    console.log('user' + user)
+    console.log('Items' + items)
     res.status(200).json({message: "Informações devolvidas com sucesso.", user, newToken, items})
   }catch(err) {
     res.status(500).json({message: 'Houve um erro ao tentar atualizar seu usuario, tente novamente mais tarde.'})
