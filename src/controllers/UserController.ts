@@ -1,9 +1,8 @@
 import { RequestHandler } from 'express';
 import { compare, hash } from 'bcryptjs';
 import { sign, verify } from 'jsonwebtoken';
-import { PrismaClient } from "@prisma/client";
+import { client } from '../prisma';
 
-export const client = new PrismaClient();
 export const createUser: RequestHandler = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -77,7 +76,9 @@ export const validateUserToken: RequestHandler = async (req, res) => {
       return res.status(401).json({ message: "Token expirado, realize um novo login." });
     }
     const userId = (decoded as any).userId;
-    const user = await client.user.findFirst({where: {id: userId}});
+    const user = await client.user.findFirst({where: {id: userId}})
+    .then((res) => {console.log(res)})
+    .catch((err) => {console.log(err)});
     const newToken = sign({userId}, `${process.env.SECRET_TOKEN}`, {expiresIn: '1y'});
 
     const items = await client.purchase.findMany({

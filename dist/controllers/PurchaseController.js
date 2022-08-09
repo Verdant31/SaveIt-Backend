@@ -1,12 +1,11 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true});
-var _client = require('@prisma/client');
 var _convertDate = require('../utils/convertDate');
+var _prisma = require('../prisma');
 
- const client = new (0, _client.PrismaClient)(); exports.client = client;
  const createPurchase = async (req, res) => {
   const { name, price, userId } = req.body;
   try { 
-    let purchase = await exports.client.purchase.create({
+    let purchase = await _prisma.client.purchase.create({
       data: {
         item: name,
         price,
@@ -23,7 +22,7 @@ var _convertDate = require('../utils/convertDate');
  const getPurchases = async (req, res) => {
   const { userId } = req.body;
   try {
-    const items = await exports.client.purchase.findMany({
+    const items = await _prisma.client.purchase.findMany({
       where: {userId},
       orderBy: {date: 'desc'},
     })

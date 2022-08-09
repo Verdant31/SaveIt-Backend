@@ -1,8 +1,7 @@
 import { RequestHandler } from 'express';
-import { PrismaClient } from "@prisma/client";
 import { convertDate } from '../utils/convertDate';
+import { client } from '../prisma';
 
-export const client = new PrismaClient();
 export const createPurchase: RequestHandler = async (req, res) => {
   const { name, price, userId } = req.body;
   try { 
