@@ -1,5 +1,5 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true});
-var _client = require('../../prisma/client');
+var _client = require('../prisma/client');
 var _convertDate = require('../utils/convertDate');
 
  const createPurchase = async (req, res) => {

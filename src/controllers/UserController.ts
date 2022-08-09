@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { compare, hash } from 'bcryptjs';
 import { sign, verify } from 'jsonwebtoken';
-import { client } from '../../prisma/client';
+import { client } from '../prisma/client';
 import { convertDate } from '../utils/convertDate';
 
 
