@@ -1,8 +1,9 @@
 import { RequestHandler } from 'express';
 import { compare, hash } from 'bcryptjs';
 import { sign, verify } from 'jsonwebtoken';
-import { client } from '../prisma';
+import { PrismaClient } from "@prisma/client";
 
+export const client = new PrismaClient();
 export const createUser: RequestHandler = async (req, res) => {
   const { email, password } = req.body;
   try {

@@ -1,12 +1,12 @@
 import { RequestHandler } from 'express';
-import { PrismaClient } from '@prisma/client'
-import { client } from '../prisma';
-const prisma = new PrismaClient()
+import { PrismaClient } from "@prisma/client";
+
+export const client = new PrismaClient();
 
 export const editUserItemsList: RequestHandler = async (req, res) => {
   const { items, userId } = req.body;
   try {
-    await prisma.user.update({
+    await client.user.update({
       data: {
         mostPurchasedItems: items
       }, where: {id: userId}
