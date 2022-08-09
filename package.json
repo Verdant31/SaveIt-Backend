@@ -13,11 +13,13 @@
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
+    "sucrase": "^3.25.0",
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "dev": "nodemon index.ts",
-    "start": "node index.ts"
+    "start": "node dist/server.js",
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
+    "dev": "nodemon src/index.ts"
   },
   "type":"module",
   "devDependencies": {
