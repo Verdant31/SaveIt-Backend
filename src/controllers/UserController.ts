@@ -76,19 +76,13 @@ export const validateUserToken: RequestHandler = async (req, res) => {
       return res.status(401).json({ message: "Token expirado, realize um novo login." });
     }
     const userId = (decoded as any).userId;
-    const user = await client.user.findFirst({where: {id: userId}})
-    .then((res) => {console.log(res)})
-    .catch((err) => {console.log(err)});
+    const user = await client.user.findFirst({where: {id: userId}});
     const newToken = sign({userId}, `${process.env.SECRET_TOKEN}`, {expiresIn: '1y'});
 
     const items = await client.purchase.findMany({
       where: {userId},
       orderBy: {date: 'desc'},
     })
-    console.log('Token' + decoded)
-    console.log('UserId' + userId)
-    console.log('user' + user)
-    console.log('Items' + items)
     res.status(200).json({message: "Informações devolvidas com sucesso.", user, newToken, items})
   }catch(err) {
     console.log(err)
